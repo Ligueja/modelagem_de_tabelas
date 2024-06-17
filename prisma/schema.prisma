@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuarios {
+  id           Int     @id @default(autoincrement())
+  nome         String  @db.VarChar(200)
+  idade        Int     @db.Integer
+  email        String  @unique @db.VarChar(255)
+  password     String  @db.VarChar(20)
+  linkDoGithub String? @map("link_do_github") @db.VarChar(255)
+
+  @@map("usuarios")
+}
+
+enum Disponibilidade {
+  SIM
+  NAO
+}
+
+model Produtos {
+  id                  Int              @id @default(autoincrement())
+  descricao           String           @db.VarChar(255)
+  valor               Decimal          @db.Decimal(8, 2)
+  quantidadeEmEstoque Int              @map("quantidade_em_estoque") @db.Integer
+  tipoDoProduto       String           @map("tipo_do_produto") @db.VarChar(255)
+  datahoradecriacao   DateTime         @default(now()) @map("data_hora_de_criacao")
+  disponivel          Disponibilidade?
+
+  @@map("produtos")
+}
+
+model Loja {
+  cnpj                String   @id @db.VarChar(14)
+  nome                String   @db.VarChar(255)
+  segmento            String   @default("alimentação") @db.VarChar(255)
+  endereco            String   @db.VarChar(255)
+  telefone            String?  @db.VarChar(11)
+  quantidadeDeFiliais Int      @map("quantidade_de_filiais") @db.Integer
+  datahoradeabertura  DateTime @map("data_hora_de_abertura")
+
+  @@map("lojas")
+}
+
+model Fornecedor {
+  id                    Int      @id @default(autoincrement())
+  nome                  String   @db.VarChar(255)
+  email                 String   @db.VarChar(255)
+  avalicao              Float
+  datahoradecriacao     DateTime @default(now()) @map("data_hora_de_criacao")
+  datahoradeatualizacao DateTime @default(now()) @map("data_hora_de_atualizacao")
+
+  @@map("fornecedores")
+}
