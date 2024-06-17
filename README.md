@@ -11,4 +11,4 @@ Exercício:
 1. Configuração do Prisma ORM
 2. Modelagem de tabelas via Prisma
 
-<b>Tecnologias utilizadas: Node JS, Typscript, Prisma ORM</b>
+<b>Tecnologias utilizadas: Node JS, Typescript, Prisma ORM</b>
